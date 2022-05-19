@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario de empresa</title>
+    <link rel="stylesheet" href="/normalize.css">
+    <link rel="stylesheet" href="/crearUsuarioLider.css">
+    
+</head>
+<body>
+    <h1>Creación de usuario empleado de empresa</h1>
+    <h3 th:if="${error}!=null"th:text="${error}" style="color: red;"></h3>
+    
+    <form id="formUsuario" action="/registrarUsuario" method="post" enctype="multipart/form-data">
+        <label for="nombre">Nombre</label>
+        <input th:value="${nombre}" type="text" name="nombre" required><br><br>
+        <label for="apellido">apellido</label>
+        <input th:value="${apellido}" type="text" name="apellido" required><br><br>
+        <label for="dni">dni</label>
+        <input th:value="${dni}" type="number" name="dni" required><br><br>
+        <label for="archivo">Seleccione una imagen de usuario</label>
+        <input type="file" name="archivoUsuario" ><br><br>
+        <label for="email">email</label>
+        <input th:value="${email}" type="text" name="email" required><br><br>
+        <label for="puesto">Ingrese el puesto</label>
+        <input type="text" th:value="${puesto}" name="puesto" required><br><br>
+        <label for="clave">clave</label>
+        <input type="password" name="clave" required><br><br>
+        <label for="repetirClave">Repetir clave</label>
+        <input type="password" name="repetirClave" required><br><br>
+        <input type="number" id="id" name="idEmpr" th:value="${session.usuariosession.empresa.id}" hidden>
+        <input type="number" name="idLider" th:value="${session.usuariosession.id}" hidden>
+
+        <button type="submit">Enviar info</button>
+    </form>
+    <a th:href="@{/empresa/administrar/__${session.usuariosession.id}__}">VOLVER A ADMINISTRAR EMPRESA</a>
+</body>
+</html>

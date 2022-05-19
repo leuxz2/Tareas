@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas</title>
+    <base href="/">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="inicio.css">
+
+</head>
+<body>
+    <h1>Task Control - Panel principal</h1>
+
+    <div class="log">
+        <img th:if="${session.usuariosession.foto}!=null" id="imgUsuario"  th:src="${'/foto/usuario/'+session.usuariosession.id}" alt="usuario">
+        <img th:if="${session.usuariosession.foto}==null" id="imgUsuario"  src="/img/usuario.png" alt="usuario">
+        <h2 th:if="${session.usuariosession}!=null"th:text="${session.usuariosession.nombre}"></h2><br>
+        <input type="number" id="idSesion" th:if="${session.usuariosession}!=null" th:value="${session.usuariosession.id}" hidden>
+        <a class="logout" th:href="@{/logout}" th:unless="${session.usuariosession}==null">Logout</a>
+    </div>
+    
+
+    <div id="opcionesLider" >
+        <img th:if="${session.usuariosession.empresa.foto}!=null" id="imgEmpresa"  th:src="${'/foto/empresa/'+session.usuariosession.empresa.id}" alt="usuario">
+        <img th:if="${session.usuariosession.empresa.foto}==null" src="/img/fabrica.png" alt="Empresa" id="imgEmpresa" >
+        <h2 th:if="${session.usuariosession.empresa}!=null" th:text="${session.usuariosession.empresa.nombre}">Empresaa</h2>
+        <div id="adminEmpresa" sec:authorize="hasRole('ROLE_LIDER')">
+           <img src="/img/engranaje.png" alt="administrar" id="imgEngranaje" class="accion">
+            <a th:href="@{/empresa/administrar/__${session.usuariosession.id}__}" th:if="${session.usuariosession.empresa}!=null">  Administrar usuarios</a>
+        </div>
+        <h3 th:if="${mensaje!= null}" th:text="${mensaje}" style="color:rgb(38, 214, 19);"></h3> 
+        <h3 th:if="${error!= null}" th:text="${error}" style="color:red;"></h3>      
+    </div>
+
+    
+    <div id="selecEmpleado" >
+        <button id="verTareas" type="submit">Haga click aquí para ver tareas del usuario --> </button>
+        <select id="empleados" name="id" required>
+        
+        </select> 
+    </div>
+    <div class="empleadoActual" sec:authorize="hasRole('ROLE_LIDER')">
+        <span >Usted está viendo las tareas de: </span> 
+        <b id="empleadoActual">Empleado</b>
+    </div>
+    <h3 sec:authorize="hasRole('ROLE_USUARIO')">Panel de tareas.</h3><br>
+    
+
+    <div class="contenedor">
+        <ul class="ul">
+            <li class="li">Todas las tareas</li>
+            <li class="li">Tareas cumplidas</li>
+            <li class="li">Tareas pendientes</li>
+            <div class="crearTarea" sec:authorize="hasRole('ROLE_LIDER')">
+                <img src="/img/agregar.png" title="Agregar tarea" class="accion">
+                <a id="btnCrearTarea" style="margin-left: 1rem;">Crear una tarea nueva</a>
+            </div>
+            
+        </ul>
+
+        <div class="subcontenedor">
+            <div class="bloque ">
+                <table id="tablaGeneral">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="campoId">Código</th>
+                            <th scope="col" class="campoNombre">Nombre</th>
+                            <th scope="col" class="campoDescripcion">Descripción</th>
+                            <th scope="col" class="campoCreacion">Creación</th>
+                            <th scope="col" class="campoLimite">Fecha límite</th>
+                            <th scope="col" class="campoCumplida">Cumplida?</th>
+                            <th scope="col" class="campoAcciones">Acciones</th>
+                            <th scope="col" class="campoNota">Nota</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaDatos">
+                        
+                    </tbody>
+                </table> <br>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="tablaAmpliada">
+        <div id="cerrarAmpliada"><img class="accion" src="/img/cerrar.png" alt="Cerrar" title="Cerrar ampliación"></div>
+        <div id="tareaAmpliada">
+            
+        </div>
+    </div>
+
+    <div id="contenedorNota">
+        <div id="subContenedorNota">
+            <div id="cerrarNota"><img class="accion" src="/img/cerrar.png" alt="Cerrar" title="Cerrar Nota"></div>
+            <div id="notaMostrada"></div> 
+        </div>
+        
+    </div>
+
+    <div id="contenedorCrearNota">
+        <div id="cerrarCrearNota"><img class="accion" src="/img/cerrar.png" alt="Cerrar" title="Cerrar Creador de Nota"></div>
+        <div id="formNota"></div>
+    </div>
+
+    
+    <div id="contenedorCrearTarea">
+        <div id="cerrarCrearTarea"><img class="accion" src="/img/cerrar.png" alt="Cerrar" title="Cerrar Creador de Tarea"></div>
+        <div id="subcontCrearTarea">
+            <h1>Formulario para crear una nueva tarea.</h1><br>
+            <form  action="/tarea/registrarTarea" method="post">
+
+                <label for="usuario">Seleccione un usuario</label>
+                <select id="empleadosDuplic" name="id" required>
+                </select> <br>
+
+                <label class="inputTarea" for="nombre">Ingrese el nombre de la tarea</label>
+                <input id="inputTareaNombre" type="text" name="nombre" maxlength="50" required><br>
+
+                <label class="inputTarea" for="descripcion">Ingrese la descripcion</label><br>
+                <textarea name="descripcion" id="inputTareaDescripcion" cols="50" rows="4" maxlength="200" required></textarea><br>
+
+                <label class="inputTarea" for="fechaFinal">Ingrese la fecha limite</label><br>
+                <input id="inputTareaFecha" type="date" name="fechaFinal" required><br><br>
+
+                <button type="submit" class="btnGuardar">Guardar</button>
+            </form>
+        </div>
+        
+        
+    </div>
+    
+    
+
+    
+    <script src="js/inicio.js"></script>
+
+</body>
+</html>
+

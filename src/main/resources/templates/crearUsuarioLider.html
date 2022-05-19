@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario lider de empresa</title>
+    <link rel="stylesheet" href="/normalize.css">
+    <link rel="stylesheet" href="/crearUsuarioLider.css">
+    
+</head>
+<body>
+    <h1>Creación de usuario Lider de Empresa</h1>
+    <h3 th:if="${error}!=null"th:text="${error}" style="color: red;"></h3>
+    
+    <form action="/registrarUsuarioLider" method="post" enctype="multipart/form-data">
+        <label for="nombre">Ingrese su Nombre *</label>
+        <input th:value="${nombre}" type="text" name="nombre" required><br><br>
+        <label for="apellido">Ingrese su apellido *</label>
+        <input th:value="${apellido}" type="text" name="apellido" required><br><br>
+        <label for="dni">Ingrese su dni *</label>
+        <input th:value="${dni}" type="number" name="dni" required><br><br>
+        <label for="archivo">Seleccione una imagen de usuario</label>
+        <input type="file" name="archivoUsuario" ><br><br>
+        <label for="email">Ingrese su email *</label>
+        <input th:value="${email}" type="text" name="email" required><br><br>
+        <label for="clave">Ingrese su clave *</label>
+        <input type="password" name="clave" required><br><br>
+        <label for="repetirClave">Repita su clave *</label>
+        <input type="password" name="repetirClave" required><br><br>
+
+        <label for="nombreEmp" >Ingrese el nombre de su empresa *</label>
+        <input type="text" th:value="${nombreEmp}" id="nombreEmp" name="nombreEmp"><br><br>
+        <label for="archivo">Seleccione el logo de su empresa</label>
+        <input type="file" name="archivoEmpresa" ><br><br>
+        <label for="rubroEmp">Ingrese el rubro de su empresa *</label>
+        <input type="text" th:value="${rubroEmp}" id="rubroEmp" name="rubroEmp"><br><br>
+        <label for="actividadEmp">Describa la actividad de su empresa *</label>
+        <textarea name="actividadEmp" th:value="${actividadEmp}" id="actividadEmp" cols="50" rows="4" maxlength="200" required></textarea><br><br>
+        
+
+        <button type="submit">Enviar info</button>
+    </form>
+    <a href="/">IR A INICIO</a>
+</body>
+</html>

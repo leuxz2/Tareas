@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskControl</title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    
+    <div class="portada">
+        <h1>TaskControl</h1>
+        <p>Crea tu equipo y delega tareas para cada miembro. Podes hacer el seguimiento de las tareas asignadas.</p>
+        <h3 th:if="${error!= null}" th:text="${error}" style="color:rgb(171, 52, 5);"></h3>
+        <h3 class="mensaje" th:if="${mensaje!= null}" th:text="${mensaje}"></h3>
+    </div>
+    
+    <div class="login">
+        <div id="comoUsar">
+            <h3 id="btnComoUsar">
+                Cómo usar la app   
+            </h3>
+        </div>
+        <div class="form">
+            <h2>Inicia sesión</h2>
+                <form action="/logincheck" method="post">
+                    <label for="username" class="label">Email</label><br>
+                <input type="email" name="username" placeholder="usuario@ejemplo.com"> <br><br>
+                <label for="password" class="label">Clave</label>
+                <input type="password" name="password" placeholder="Contraseña"><br><br>
+                <button type="submit" id="btnLogin">Iniciar sesión</button>
+            </form>
+            <a id="registrate" href="/crearUsuarioLider">Registrate</a>
+        </div>
+    </div>
+    
+    <div id="contenedorComoUsar">
+        <div id="cerrarComoUsar"><img class="accion" src="/img/cerrar.png" alt="Cerrar" title="Cerrar como usar"></div>
+        <div id="textoComoUsar">
+            La App 'TaskControl' (versión 1.1) permite que un usuario prinicipal, denominado "Líder", pueda crear una empresa la cual posee
+            una lista de empleados. A cada uno de estos "Usuarios" empleados se le asignan tareas, éstas contienen un código de identificación,
+            nombre, descripción, fecha de creación, fecha límite en la cual debería estar cumplida y opcionalmente se puede
+            agregar una nota para realizar alguna observación. <br><br>
+            El usuario "Líder" visualiza las tareas asignadas a cada empleado, diferenciando las cumplidas de las que no lo están.
+            En el momento que desee puede asignar tareas nuevas como así también eliminarlas. Posee también un menú para 
+            administrar su empresa donde es posible modificar su información, además de agregar, editar o eliminar empleados 
+            (con un máximo de 5 en la versión gratuita).
+            Adicionalmente se muestra un panel para cada empleado con su información y datos estadísticos. <br><br>
+            Cuando es creado un usuario "empleado" se le asigna, además de sus datos personales, un email y contraseña que 
+            le servirán para loguearse en el sistema. Éste tiene a su disposición un menú con las tareas asignadas por su Líder, 
+            en el que puede agregar una nota a cada una si fuera necesario y por último dar dicha tarea por cumplida.<br><br>
+            La próxima versión 1.2 contará con responsive design para uso adaptado a móviles y funciones adicionales. <br><br>
+            Gracias por utilizar TaskControl. <br><br>
+            Autores: Rodrigo Echarren - Leonardo Moreno
+
+        </div>
+    </div>
+
+    
+
+    <script src="js/index.js"></script>
+</body>
+</html>

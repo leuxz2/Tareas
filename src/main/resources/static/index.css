@@ -1,0 +1,63 @@
+body{
+    color: white;
+    display: flex;
+    background-color: rgb(19, 46, 72);
+    font-family: sans-serif;
+}
+
+.portada{
+    width: 60%;
+    background-image: url(img/fondoLogin.jpg);
+    background-size: cover;
+    height: 100vh;
+    padding: 2%;
+    font-size: 3rem;
+}
+
+.login{
+    width: 40%;
+}
+
+.form{
+    width: 50%;
+    height: 50%;
+    margin: 25vh auto ;
+    text-align: center;
+    border: 5px solid rgb(255, 255, 255);
+    border-radius: 2rem;
+}
+
+.form h2{
+    margin: 10%;
+    font-size: 2.5rem;
+}
+
+.form form{
+    padding: 10%;
+    font-size: 1.2rem;
+}
+
+#btnLogin {
+    width: 80%;
+    background-color: rgb(64, 152, 234);
+    opacity: 0.8;
+    color: white;
+}
+
+#btnLogin:hover{
+    cursor: pointer;
+    opacity: 1;
+    
+}
+
+#registrate{
+    font-size: large;
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.mensaje{
+    color: greenyellow;
+    font-size: 1rem;
+}

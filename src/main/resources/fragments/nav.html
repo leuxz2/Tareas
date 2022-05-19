@@ -1,0 +1,8 @@
+<nav>
+        <a href="/"><img class="logo" src="/img/BPGSM-100.png" title="Logo" alt="Logo biblioteca" style="width: 150px;"></a>
+        <div class="nav_contenedor">
+            <p th:if="${session.usuariosession}!=null"th:text="${session.usuariosession.nombre}" ><p sec:authorize="hasRole('ROLE_ADMIN')"> (Admin)</p></p>    
+            <a class="login" th:href="@{/login}" th:if="${session.usuariosession}==null" >Login</a>
+            <a class="login" th:href="@{/logout}" th:unless="${session.usuariosession}==null">Logout</a>
+        </div>
+    </nav>

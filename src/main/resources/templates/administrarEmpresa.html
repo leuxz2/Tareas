@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar empresa</title>
+    <link rel="stylesheet" href="/normalize.css">
+    <link rel="stylesheet" href="/administrar.css">
+</head>
+<body>
+    <h1>Task Control - Administración de usuarios</h1>
+
+    <div class="log">
+        <img th:if="${session.usuariosession.foto}!=null" class="imgUsuario"  th:src="${'/foto/usuario/'+session.usuariosession.id}" alt="usuario">
+        <img th:if="${session.usuariosession.foto}==null" class="imgUsuario"  src="/img/usuario.png" alt="usuario">
+        <h2 th:if="${session.usuariosession}!=null"th:text="${session.usuariosession.nombre}">NombreJefe</h2><br>
+        <input type="number" id="idSesion" th:if="${session.usuariosession}!=null" th:value="${session.usuariosession.id}" hidden>
+        <a class="logout" th:href="@{/logout}" th:unless="${session.usuariosession}==null">Logout</a>
+    </div>
+
+    <div id="opcionesLider" sec:authorize="hasRole('ROLE_LIDER')">
+        <img th:if="${session.usuariosession.empresa.foto}!=null" id="imgEmpresa"  th:src="${'/foto/empresa/'+session.usuariosession.empresa.id}" alt="usuario">
+        <img th:if="${session.usuariosession.empresa.foto}==null" src="/img/fabrica.png" alt="Empresa" id="imgEmpresa" >
+        <h2 th:if="${session.usuariosession.empresa}!=null" th:text="${session.usuariosession.empresa.nombre}">Empresaa</h2>
+        <div id="adminEmpresa">
+           <img src="/img/engranaje.png" alt="administrar" id="imgEngranaje">
+            <a id="editarEmpresa" th:if="${session.usuariosession.empresa}!=null">  Editar empresa</a>
+        </div>
+        <h3 th:if="${mensaje!= null}" th:text="${mensaje}" style="color:rgb(38, 214, 19);">mensaje de algo </h3> 
+        <h3 th:if="${error!= null}" th:text="${error}" style="color:red;">Error de algo</h3>      
+    </div>
+    
+    <div sec:authorize="hasRole('ROLE_LIDER')" >
+        <div id="crearUsuario">
+            <h2>Crea los usuarios de tu empresa</h2><br>
+            <input type="number" id="idEmpr" name="idEmpr" th:value="${session.usuariosession.empresa.id}" hidden>
+            <div id="cantidadUsuarios">
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="panelUsuarios">
+        <div class="usuarioCaja" th:each="usuarioEmp: ${usuarios}">
+            <img th:if="${usuarioEmp.foto}!=null" class="imgUsuario"  th:src="${'/foto/usuario/'+usuarioEmp.id}" alt="usuario">
+            <img th:if="${usuarioEmp.foto}==null" class="imgUsuario"  src="/img/usuario.png" alt="usuario">
+            <input class="idEmpleado" type="number" th:value="${usuarioEmp.id}" hidden>
+            <input type="text" class="nombreUsuarioCaja" th:value="${usuarioEmp.nombre+' '+usuarioEmp.apellido}" hidden>
+            <h3 th:text="${usuarioEmp.nombre+' '+usuarioEmp.apellido}" >Nombre</h3>
+            <h4 th:text="${usuarioEmp.puesto}">Puesto</h4>
+            <h4 th:text="'Tareas:'+' '+${usuarioEmp.cantidadTareas}">cantidad tareas</h4>
+            <h4 th:text="'Tareas cumplidas:'+' '+${usuarioEmp.tareasCumplidas}">tareas cumplidas</h4>
+            <a class="btnEditarUsuario" >Editar</a>
+            <a th:if="${usuarioEmp.id}!=${session.usuariosession.id}" class="btnEliminarUsuario">Eliminar</a>
+        </div>
+    </div>
+
+    <a href="/inicio" id="inicio">IR A INICIO</a>
+    
+    <div id="editarContenedor">
+        <div id="cerrarEditarUsuario"><img class="accion" src="/img/cerrar.png" alt="Cerrar" title="Cerrar Creador de Tarea"></div>
+        <form id="formEditarUsuario" action="/modificarUsuario" method="post" enctype="multipart/form-data">
+            
+        </form>
+    </div>
+
+    <div id="eliminarContenedor">
+        <div id="subContEliminar">
+            
+        </div>
+    </div>
+
+    <div id="editarEmpresaContenedor">
+        <div id="cerrarEditarEmpresa"><img class="accion" src="/img/cerrar.png" alt="Cerrar" title="Cerrar edición de empresa"></div>
+        <form id="formEditarEmpresa" action="/empresa/modificarEmpresa" method="post" enctype="multipart/form-data">
+            
+        </form>
+    </div>
+
+    <script src="/js/administrar.js"></script>
+</body>
+</html>

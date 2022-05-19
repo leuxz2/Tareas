@@ -1,0 +1,27 @@
+body {
+    background-color: rgb(66, 209, 27);
+}
+
+#tablaGeneral{
+    border: 3px solid orangered;
+    padding: 20px;
+}
+
+#tablaGeneral thead th{
+    border: 1px solid rgb(17, 164, 22);
+}
+
+#tablaGeneral tbody td,#tablaGeneral tbody th {
+    border: 1px solid lightskyblue;
+}
+
+.cumplida {
+    width: 30px;
+}
+
+#prueba{
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    border-radius: 50%;
+}
